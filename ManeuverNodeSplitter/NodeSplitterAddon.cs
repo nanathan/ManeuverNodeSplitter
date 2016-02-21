@@ -56,15 +56,16 @@ namespace ManeuverNodeSplitter
         private void ToggleVisibility()
         {
             visible = !visible;
-            if(visible)
-                RenderingManager.AddToPostDrawQueue(349, Draw);
-            else
-                RenderingManager.RemoveFromPostDrawQueue(349, Draw);
         }
 
-        internal void Draw()
+        internal void OnGUI()
         {
-            position = GUILayout.Window(windowId, position, DrawWindow, "Node Splitter", GUILayout.ExpandHeight(true));
+            if(visible)
+            {
+                GUI.skin = MNSSettings.Instance.Skin;
+
+                position = GUILayout.Window(windowId, position, DrawWindow, "Node Splitter", GUILayout.ExpandHeight(true));
+            }
         }
 
         internal void DrawWindow(int wid)
