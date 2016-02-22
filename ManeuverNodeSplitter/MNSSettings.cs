@@ -18,12 +18,23 @@ namespace ManeuverNodeSplitter
         }
 
         public GUISkin Skin { get; private set; }
+        public string defaultMode { get; private set; }
+        public int splitByApoIterations { get; private set; }
+        public int splitByBurnTimeIterations { get; private set; }
+        public int splitByPeriodIterations { get; private set; }
 
         private void Initialize()
         {
             Debug.Log("Initializing ManeuverNodeSplitter settings");
-            Skin = HighLogic.Skin;
 
+            // Defaults
+            Skin = HighLogic.Skin;
+            defaultMode = "by dV";
+            splitByApoIterations = 18;
+            splitByBurnTimeIterations = 18;
+            splitByPeriodIterations = 18;
+
+            // Load from configuration file
             ConfigNode[] nodes = GameDatabase.Instance.GetConfigNodes("MANEUVER_NODE_SPLITTER");
             if(nodes != null)
             {
@@ -38,6 +49,52 @@ namespace ManeuverNodeSplitter
                         if(string.Compare(skin, "unity", true) == 0)
                         {
                             Skin = GUI.skin;
+                        }
+                        else if(string.Compare(skin, "ksp", true) == 0)
+                        {
+                            Skin = HighLogic.Skin;
+                        }
+                        else if(skin != null && skin != "")
+                        {
+                            GUISkin s = AssetBase.GetGUISkin(skin);
+                            if(s != null)
+                            {
+                                Skin = s;
+                            }
+                            else
+                            {
+                                Debug.Log("Searching for skin " + skin);
+                                GUISkin[] skins = Resources.FindObjectsOfTypeAll<GUISkin>();
+                                foreach(GUISkin gs in skins)
+                                {
+                                    if(string.Compare(skin, gs.name, true) == 0)
+                                    {
+                                        Skin = gs;
+                                    }
+                                }
+                            }
+                        }
+
+                        string mode = settings.GetValue("defaultMode");
+                        if(mode != null && mode.Trim().Length > 0)
+                        {
+                            defaultMode = mode.Trim();
+                        }
+
+                        int iterations;
+                        if(int.TryParse(settings.GetValue("splitByApoIterations"), out iterations) && iterations > 0)
+                        {
+                            splitByApoIterations = iterations;
+                        }
+
+                        if(int.TryParse(settings.GetValue("splitByBurnTimeIterations"), out iterations) && iterations > 0)
+                        {
+                            splitByBurnTimeIterations = iterations;
+                        }
+
+                        if(int.TryParse(settings.GetValue("splitByPeriodIterations"), out iterations) && iterations > 0)
+                        {
+                            splitByPeriodIterations = iterations;
                         }
                     }
                 }
