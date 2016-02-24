@@ -169,28 +169,32 @@ namespace ManeuverNodeSplitter
             return HighLogic.LoadedSceneIsFlight && Solver != null;
         }
 
-        public void SaveManeuvers()
+        public List<Maneuver> SaveManeuvers()
         {
+            List<Maneuver> oldSaves = new List<Maneuver>(oldManeuvers);
+            oldManeuvers.Clear();
             foreach(ManeuverNode node in Solver.maneuverNodes)
             {
                 oldManeuvers.Add(new Maneuver(node));
             }
+            return oldSaves;
         }
 
         private void UndoSplit()
         {
             if(IsSolverAvailable() && oldManeuvers.Count > 0 && oldManeuvers[0].UT > Planetarium.GetUniversalTime())
             {
+                List<Maneuver> toRestore = SaveManeuvers();
+
                 while(Solver.maneuverNodes.Count > 0)
                 {
                     Solver.RemoveManeuverNode(Solver.maneuverNodes[0]);
                 }
-                foreach(Maneuver m in oldManeuvers)
+                foreach(Maneuver m in toRestore)
                 {
                     ManeuverNode node = Solver.AddManeuverNode(m.UT);
                     node.OnGizmoUpdated(m.DeltaV, m.UT);
                 }
-                oldManeuvers.Clear();
             }
         }
     }

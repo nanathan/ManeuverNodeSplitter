@@ -10,6 +10,6 @@ namespace ManeuverNodeSplitter
         void ResetWindow();
         void DrawHeader();
         void DrawFooter();
-        void SaveManeuvers();
+        List<Maneuver> SaveManeuvers();
     }
 }
