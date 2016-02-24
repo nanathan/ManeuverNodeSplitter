@@ -47,7 +47,7 @@ namespace ManeuverNodeSplitter
             GUI.backgroundColor = Color.green;
             if(GUILayout.Button("+", GUILayout.Width(30)))
             {
-                values.Add("");
+                values.Add(values[values.Count - 1]);
             }
             GUI.backgroundColor = bgColor;
             GUILayout.EndHorizontal();
