@@ -6,7 +6,7 @@ namespace ManeuverNodeSplitter
 {
     class NodeSplitterByDeltaV : BaseNodeSplitter
     {
-        internal NodeSplitterByDeltaV(INodeSplitterAddon addon) : base(addon)
+        internal NodeSplitterByDeltaV(INodeSplitterAddon addon) : base(addon, true)
         {
         }
 

@@ -17,7 +17,7 @@ namespace ManeuverNodeSplitter
 
     class NodeSplitterByBurnTime : BaseNodeSplitter
     {
-        internal NodeSplitterByBurnTime(INodeSplitterAddon addon) : base(addon)
+        internal NodeSplitterByBurnTime(INodeSplitterAddon addon) : base(addon, true)
         {
         }
 

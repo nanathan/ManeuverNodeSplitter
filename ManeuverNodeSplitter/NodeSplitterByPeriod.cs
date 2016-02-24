@@ -7,7 +7,7 @@ namespace ManeuverNodeSplitter
 {
     class NodeSplitterByPeriod : BaseNodeSplitter
     {
-        internal NodeSplitterByPeriod(INodeSplitterAddon addon) : base(addon)
+        internal NodeSplitterByPeriod(INodeSplitterAddon addon) : base(addon, false)
         {
         }
 

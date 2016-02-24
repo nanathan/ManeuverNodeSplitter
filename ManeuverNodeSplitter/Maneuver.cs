@@ -16,5 +16,10 @@ namespace ManeuverNodeSplitter
             this.DeltaV = node.DeltaV;
             this.UT = node.UT;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Maneuver {0} : [{1}]", UT, DeltaV);
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace ManeuverNodeSplitter
 
     class NodeSplitterByApoapsis : BaseNodeSplitter
     {
-        internal NodeSplitterByApoapsis(INodeSplitterAddon addon) : base(addon)
+        internal NodeSplitterByApoapsis(INodeSplitterAddon addon) : base(addon, false)
         {
         }
 
