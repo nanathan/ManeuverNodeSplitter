@@ -172,6 +172,20 @@ namespace ManeuverNodeSplitter
                     AdjustNode(originalNode, original, originalPeriod, originalMagnitude, node, list[index], splitDv);
 
                     LogNode("After " + index, node);
+
+                    if(node.nextPatch.patchEndTransition == Orbit.PatchTransitionType.ESCAPE)
+                    {
+                        ScreenMessages.PostScreenMessage("Input values cause ejection in fewer burns than specified!", 8f, ScreenMessageStyle.UPPER_CENTER);
+                        Debug.Log(string.Format("Early ejection at index {0}", index));
+                        break;
+                    }
+                    else if(node.nextPatch.patchEndTransition == Orbit.PatchTransitionType.ENCOUNTER)
+                    {
+                        ScreenMessages.PostScreenMessage("Encounter detected! Unable to split the maneuver as specified!", 8f, ScreenMessageStyle.UPPER_CENTER);
+                        Debug.Log(string.Format("Encounter at index {0}", index));
+                        break;
+                    }
+
                     splitDv += node.DeltaV.magnitude;
                     node = Solver.AddManeuverNode(node.UT + node.nextPatch.period);
                 }

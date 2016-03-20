@@ -117,11 +117,13 @@ namespace ManeuverNodeSplitter
         protected void LogNode(string message, ManeuverNode node)
         {
 #if DEBUG
-            Quaternion rot = node.nodeRotation;
-            Vector3 angles = rot.eulerAngles;
+            //Quaternion rot = node.nodeRotation;
+            //Vector3 angles = rot.eulerAngles;
+            Orbit orbit = node.nextPatch;
             Debug.Log(string.Format("{0} Node dv:{1} ut:{2} next per:{3} per:{4}", message, node.DeltaV.magnitude, node.UT, node.nextPatch.period, node.patch.period));
-            Debug.Log(string.Format("{0} Quat w:{1} x:{2} y:{3} z:{4}", message, rot.w, rot.x, rot.y, rot.z));
-            Debug.Log(string.Format("{0} Euler x:{1} y:{2} z:{3}", message, angles.x, angles.y, angles.z));
+            //Debug.Log(string.Format("{0} Quat w:{1} x:{2} y:{3} z:{4}", message, rot.w, rot.x, rot.y, rot.z));
+            //Debug.Log(string.Format("{0} Euler x:{1} y:{2} z:{3}", message, angles.x, angles.y, angles.z));
+            Debug.Log(string.Format("{0} Orbit inc:{1} ecc:{2} sma:{3} end:{4}", message, orbit.inclination, orbit.eccentricity, orbit.semiMajorAxis, orbit.patchEndTransition));
 #endif
         }
     }
