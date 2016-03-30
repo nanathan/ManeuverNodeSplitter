@@ -70,7 +70,7 @@ namespace ManeuverNodeSplitter
         protected void RotateDeltaV(ManeuverNode original, ManeuverNode node, ref Vector3d dv)
         {
             DebugLog("dV before {0},{1},{2}", dv.x, dv.y, dv.z);
-            dv = node.nodeRotation.Inverse() * original.nodeRotation * dv;
+            dv = Quaternion.Inverse(node.nodeRotation) * original.nodeRotation * dv;
             DebugLog("dV after {0},{1},{2}", dv.x, dv.y, dv.z);
         }
 

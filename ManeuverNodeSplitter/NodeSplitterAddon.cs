@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KSP.UI.Screens;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -188,7 +189,7 @@ namespace ManeuverNodeSplitter
 
                 while(Solver.maneuverNodes.Count > 0)
                 {
-                    Solver.RemoveManeuverNode(Solver.maneuverNodes[0]);
+                    Solver.maneuverNodes[0].RemoveSelf();
                 }
                 foreach(Maneuver m in toRestore)
                 {

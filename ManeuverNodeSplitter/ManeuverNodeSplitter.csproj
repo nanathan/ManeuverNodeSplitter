@@ -34,6 +34,9 @@
     <Reference Include="Assembly-CSharp">
       <Private>True</Private>
     </Reference>
+    <Reference Include="KSPUtil">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
