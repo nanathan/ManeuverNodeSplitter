@@ -61,7 +61,8 @@ namespace ManeuverNodeSplitter
                 {
                     RotateDeltaV(originalNode, node, ref dv);
                 }
-                node.OnGizmoUpdated(dv, node.UT);
+                node.DeltaV = dv;
+                node.solver.UpdateFlightPlan();
 
                 if(node.nextPatch.ApA > 0 && node.nextPatch.period < targetPeriod)
                     minFraction = fraction;

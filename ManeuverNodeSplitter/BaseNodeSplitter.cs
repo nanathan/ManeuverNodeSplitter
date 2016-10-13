@@ -216,7 +216,8 @@ namespace ManeuverNodeSplitter
                 {
                     Vector3d dv = original.DeltaV * ((originalMagnitude - splitDv) / originalMagnitude);
                     RotateDeltaV(originalNode, node, ref dv);
-                    node.OnGizmoUpdated(dv, node.UT);
+                    node.DeltaV = dv;
+                    node.solver.UpdateFlightPlan();
                     LogNode("Final", node);
                     double timeDifference = node.UT - original.UT;
                     double orbitsToReverse = Math.Ceiling(timeDifference / originalPeriod);
@@ -234,7 +235,8 @@ namespace ManeuverNodeSplitter
                         {
                             ManeuverNode mn = Solver.maneuverNodes[index];
                             Debug.Log(string.Format("Moving node {0} ({1}) back {2} from {3}", index, mn.DeltaV.magnitude, timeToReverse, mn.UT));
-                            mn.OnGizmoUpdated(mn.DeltaV, mn.UT - timeToReverse);
+                            mn.UT -= timeToReverse;
+                            mn.solver.UpdateFlightPlan();
                         }
                     }
                     double dt = original.UT - node.UT;

@@ -41,7 +41,8 @@ namespace ManeuverNodeSplitter
             {
                 RotateDeltaV(originalNode, node, ref dv);
             }
-            node.OnGizmoUpdated(dv, node.UT);
+            node.DeltaV = dv;
+            node.solver.UpdateFlightPlan();
         }
     }
 }

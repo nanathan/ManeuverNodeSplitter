@@ -194,8 +194,11 @@ namespace ManeuverNodeSplitter
                 foreach(Maneuver m in toRestore)
                 {
                     ManeuverNode node = Solver.AddManeuverNode(m.UT);
-                    node.OnGizmoUpdated(m.DeltaV, m.UT);
+                    node.DeltaV = m.DeltaV;
+                    node.solver.UpdateFlightPlan();
                 }
+
+                ScreenMessages.PostScreenMessage(string.Format("Replaced flight plan with {0} saved maneuvers.", toRestore.Count), 8f, ScreenMessageStyle.UPPER_CENTER);
             }
         }
     }
