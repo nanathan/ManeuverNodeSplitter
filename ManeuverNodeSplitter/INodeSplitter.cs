@@ -70,8 +70,16 @@ namespace ManeuverNodeSplitter
         protected void RotateDeltaV(ManeuverNode original, ManeuverNode node, ref Vector3d dv)
         {
             DebugLog("dV before {0},{1},{2}", dv.x, dv.y, dv.z);
-            dv = Quaternion.Inverse(node.nodeRotation) * original.nodeRotation * dv;
+            dv = Quaternion.Inverse(ManeuverNodeRotation(node)) * ManeuverNodeRotation(original) * dv;
             DebugLog("dV after {0},{1},{2}", dv.x, dv.y, dv.z);
+        }
+
+        private Quaternion ManeuverNodeRotation(ManeuverNode maneuverNode)
+        {
+            Vector3d position = maneuverNode.patch.getRelativePositionAtUT(maneuverNode.UT).xzy;
+            Vector3d prograde = maneuverNode.patch.getOrbitalVelocityAtUT(maneuverNode.UT).xzy;
+            Vector3d orbitNormal = Vector3d.Cross(prograde, position);
+            return Quaternion.LookRotation(prograde, orbitNormal);
         }
 
         protected bool IsSolverAvailable()
